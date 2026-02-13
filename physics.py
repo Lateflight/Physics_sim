@@ -4,7 +4,7 @@ import time
 def acceleration(obj,drag=False, k=0.1):
     # a super simplified forces model`
     g=-9.81
-    F=np.array([0,0,-9.81],dtype=float)
+    A=np.array([0,0,-9.81],dtype=float)
     if drag==True:
         #returns drag force as k, which represents the 1/2 p r Cd A part
         V=obj.X[3:6]
@@ -18,19 +18,14 @@ def acceleration(obj,drag=False, k=0.1):
             D=k*vel**2
             aD=(D/obj.mass)
             aD_dir=dirh*aD
-            F+=aD_dir
-        
+            A+=aD_dir
+    acc = apply_translation(obj,A)    
     return acc
 
-x += v*dt + 0.5*a*dt*dt
-a_new = acceleration(x, v, ...)
-v += 0.5*(a + a_new)*dt
-a = a_new
 
-def apply_translation(obj, ax,ay,az,dt=0.01,drag=False):
-    args = acceleration(obj, drag)
+def apply_translation(obj,A,dt=0.01):
 
-    
+    args=A
 
     for i in range(len(args)):
         #obj.X is a nmpy array
