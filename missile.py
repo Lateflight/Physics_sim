@@ -1,27 +1,13 @@
-import sensor as sr
-import NaviLo
-import onboard as cmp
+import numpy as np
 
-l=NaviLo.NaviLo(0)
 
 class Missile:
-
-    def __init__(self,x,y,thrust=100,m=1,navigation_law):
-        thurst in N, mass in kg
-        self.navlo=navigation_law
-        self.x = x
-        self.y = y
-        self.z = 0
-        self.vx = 0
-        self.vy = 0
-        self.vz = 0
+    missile_list=[]
+    def __init__(self,x,mass=1):
         
-    def launch(ax=0,ay=0,az=):
-
-        self.ax = 0
-        self.ay = 0
-        self.az = self.thrust/self.m
-
-    def check_collision(X):
-        if z<0:
-            return None
+        self.X = np.array(x,dtype=float) #x,y,z,vx,vy,vz...
+        self.mass = mass
+        Missile.missile_list.append(self)
+    def return_values(self):
+        
+        return (self.X.copy())

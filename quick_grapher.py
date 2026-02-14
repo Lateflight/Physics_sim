@@ -1,29 +1,48 @@
 import matplotlib.pyplot as plt
 
-def graph(coord):
+def graph(bundle, time):
 
-    x = [i[0][0] for i in coord]; vx = [i[0][3] for i in coord]
-    y = [i[0][1] for i in coord]; vy = [i[0][4] for i in coord]
-    z = [i[0][2] for i in coord]; vz = [i[0][5] for i in coord]
-    t = [i[-1] for i in coord]
+    fig, AX = plt.subplots(3, 2, figsize=(10, 8), sharex=True)
 
-    fig, (AX)=plt.subplots(3,2)
+    # (position_index, row, column)
+    dims = [
+        (0, 0, 0),  # x
+        (1, 1, 0),  # y
+        (2, 2, 0),  # z
+        (6, 0, 1),  # theta
+        (7, 1, 1),  # phi
+        (8, 2, 1),  # psi
+    ]
 
-    AX[0,0].set_title("x vs t")
-    AX[1,0].set_title("y vs t")
-    AX[2,0].set_title("z vs t")
+    for obj_idx, vector in enumerate(bundle):
 
-    AX[0,0].plot(t,x,label = "X")
-    AX[0,0].plot(t,vx,label = "Velocity X")
-    AX[1,0].plot(t,y,label = "Y")
-    AX[1,0].plot(t,vy, label = "Velocity y")
-    AX[2,0].plot(t,z, label = "Z")
-    AX[2,0].plot(t,vz, label="Velocity z")
+        for pos_idx, row, col in dims:
 
+            vel_idx = pos_idx + 3
+            ax = AX[row, col]
 
-    AX[2,0].legend()
+            pos_values = [state[pos_idx] for state in vector]
+            vel_values = [state[vel_idx] for state in vector]
+
+            ax.plot(time, pos_values, label=f'Obj{obj_idx} pos')
+            ax.plot(time, vel_values, linestyle='--', label=f'Obj{obj_idx} vel')
+
+    AX[0, 0].set_title("Translation")
+    AX[0, 1].set_title("Rotation")
+
+    AX[0, 0].set_ylabel("x")
+    AX[1, 0].set_ylabel("y")
+    AX[2, 0].set_ylabel("z")
+
+    AX[0, 1].set_ylabel("theta")
+    AX[1, 1].set_ylabel("phi")
+    AX[2, 1].set_ylabel("psi")
+
+    for ax in AX[-1, :]:
+        ax.set_xlabel("Time")
+
+    for ax in AX.flatten():
+        ax.legend()
+
     plt.tight_layout()
     plt.show()
-
-
-
