@@ -8,9 +8,14 @@ from missile import Missile
 def main():
     
 
-    state_vector =   [10,0,100,0,0,10,0,0,0,0,0,0] #3 positionals, 3 velocity,3 angles, 3 angular
+    aero = (0.1,0.1)
+    call={'drag': aero,
+        'lift': aero,
+         'gravity': ()}
+    
+    state_vector =   [0,0,10,0,0,100,0,0,0,0,0,0] #3 positionals, 3 velocity,3 angles, 3 angular
     #theta is pitch, phi is yaw
-    m_state_vector = [10,0,10,0,0,10,0,0,0,0,0,0]
+    m_state_vector = [0,0,10,0,0,100,0,0,0,0,0,0]
     
     T=1
     M=1
@@ -36,7 +41,8 @@ def main():
             exit_flag = False
 
             for index, obj in enumerate(objects):
-                result = phy.acceleration(obj, True, True)
+                
+                result = phy.acceleration(obj, call)
                 if result == 1:
                     exit_flag = True
 
