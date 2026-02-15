@@ -80,11 +80,11 @@ def thrust(obj, thrust):
     theta = obj.X[6]
     phi = obj.X[7]
     F=thrust
-    if any(x>0 for x in F):
-        if F[2]<0:
-            F[2] = 0
+    
+    if F[2]<0:
+        F[2] = 0
             
-        print(f"THRUSTING: \nOBJ:{obj}\nTHRUST:{F}")
+    print(f"THRUSTING: \nOBJ:{obj}\nTHRUST:{F}")
     return F
 
 

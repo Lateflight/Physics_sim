@@ -11,6 +11,7 @@ class Missile:
         self.call=permitted_forces
         self.call['thrust'] = ()
         self.old = 0
+        self.old_d = 0
 
         Missile.missile_list.append(self)
     def return_values(self):
@@ -22,8 +23,8 @@ class Missile:
         return measurement
     
     def simple_thrust(self,signal,kp,kd,dt=0.01):
-        
-        thrust_signal = signal*kp+kd*(signal-kd)/dt
+        signal = (signal+self.old)/2
+        thrust_signal = signal*kp+(kd*(signal-self.old)/dt)
         print(thrust_signal)
         if thrust_signal.all() < 0:
 
@@ -35,7 +36,8 @@ class Missile:
         
         ret = self.thrust*thrust_signal
         self.call['thrust']=tuple([ret])
-        self.old=ret
+        self.old = signal
+        self.old_d = (signal-self.old)/dt
 
 
 
