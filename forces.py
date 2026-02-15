@@ -79,8 +79,11 @@ def drag(obj,k,coeff):
 def thrust(obj, thrust):
     theta = obj.X[6]
     phi = obj.X[7]
-    F=np.array([sin(theta)*cos(phi),sin(phi)*sin(theta),cos(theta)])*thrust
+    F=thrust
     if any(x>0 for x in F):
+        if F[2]<0:
+            F[2] = 0
+            
         print(f"THRUSTING: \nOBJ:{obj}\nTHRUST:{F}")
     return F
 

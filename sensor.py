@@ -10,7 +10,7 @@ def getfrom_sensor(obj1,obj2):
     sigma = 1 # meters
     noise = np.random.normal(0, sigma, size=3)
 
-    measured = difference + noise
+    measured = difference 
 
 
     print(f"+-----------+\n    BEEP\ndifference: {measured}\ncheating! Noise: {noise}+-----------+\n\n\n")

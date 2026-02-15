@@ -25,11 +25,11 @@ class Missile:
         
         thrust_signal = signal*kp+kd*(signal-kd)/dt
         print(thrust_signal)
-        if thrust_signal < 0:
+        if thrust_signal.all() < 0:
 
             thrust_signal=0
             
-        elif thrust_signal > 1:
+        elif thrust_signal.all() > 1:
 
             thrust_signal = 1
         

@@ -14,9 +14,9 @@ def main():
         'lift': aero,
          'gravity': ()}
     
-    state_vector =   [0,0,111,0,0,20,0,0,0,0,0,0] #3 positionals, 3 velocity,3 angles, 3 angular
+    state_vector =   [30,0,111,0,0,20,0,0,0,0,0,0] #3 positionals, 3 velocity,3 angles, 3 angular
     #theta is pitch, phi is yaw
-    m_state_vector = [0,0,112,0,0,0,0,0,0,0,0,0]
+    m_state_vector = [0,0,0,0,0,1,0,0,0,0,0,0]
     
     
     
@@ -45,7 +45,7 @@ def main():
                 
                 if isinstance(obj,Missile):
                     M=missile.measure(target_rocket)
-                    missile.simple_thrust(M[2],kp=0.1,kd=0.05,dt=0.01)
+                    missile.simple_thrust(M,kp=0.1,kd=0.05,dt=0.01)
                 result = phy.step(obj, obj.call,dt)
                 
             
